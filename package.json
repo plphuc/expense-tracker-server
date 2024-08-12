@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon set DEBUG=express:* & nodemon api/index.js"
+    "dev": "nodemon api/index.js",
+    "start": "nodemon --trace-warnings api/index.js"
   },
   "dependencies": {
     "@apollo/server": "^4.10.5",
