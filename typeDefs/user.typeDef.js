@@ -5,12 +5,13 @@ const userTypeDef = `#graphql
     name: String!,
     password: String!,
     profilePicture: String,
-    gender: String!
+    gender: String!,
+    transactions: [Transaction!]
   }
 
   type Query {
     authUser: User # it may return null if user is not authenticated
-    user(userID: ID!): User
+    user(userId: ID!): User
   }
   
   type LogoutResponse {

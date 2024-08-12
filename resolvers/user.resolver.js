@@ -1,8 +1,7 @@
-import { users } from '../dummyData/data.js';
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import ApiError from '../utils/apiError.js';
-import httpStatus from 'http-status';
+import Transaction from '../models/transaction.model.js';
 
 const userResolver = {
     Mutation: {
@@ -91,6 +90,19 @@ const userResolver = {
             } catch (error) {
                 console.error('Error in user query: ', error);
                 throw new Error(error.message || 'Error getting user');
+            }
+        }
+    },
+    User: {
+        transactions: async (parent) => {
+            try {
+                const transactions = await Transaction.find({
+                    userId: parent._id
+                });
+                return transactions;
+            } catch (error) {
+                console.log('Error in user.transaction resolver: ', error);
+                throw new Error(error.message || 'Internal server error');
             }
         }
     }

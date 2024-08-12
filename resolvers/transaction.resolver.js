@@ -1,4 +1,5 @@
 import Transaction from '../models/transaction.model.js';
+import User from '../models/user.model.js';
 
 const transactionResolver = {
     Query: {
@@ -28,7 +29,6 @@ const transactionResolver = {
                 const userId = await context.getUser()._conditions._id;
                 const transactions = await Transaction.find({ userId });
                 const categoryMap = {};
-                
 
                 transactions.forEach((transaction) => {
                     if (!categoryMap[transaction.category]) {
@@ -37,7 +37,6 @@ const transactionResolver = {
                     categoryMap[transaction.category] += transaction.amount;
                 });
                 console.log(categoryMap);
-                
 
                 return Object.entries(categoryMap).map(
                     ([category, totalAmount]) => ({ category, totalAmount })
@@ -84,6 +83,18 @@ const transactionResolver = {
             } catch (error) {
                 console.error('Error deleting transaction: ', error);
                 throw new Error('Error deleting transaction');
+            }
+        }
+    },
+    Transaction: {
+        user: async (parent) => {
+            try {
+                const userId = parent.userId;
+                const user = await User.findById(userId);
+                return user;
+            } catch (error) {
+                console.error('Error getting user: ', error);
+                throw new Error('Error getting user');
             }
         }
     }
