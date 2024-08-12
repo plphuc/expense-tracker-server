@@ -2,10 +2,10 @@ import Transaction from '../models/transaction.model.js';
 
 const transactionResolver = {
     Query: {
-        transactions: async (_,__, context) => {
+        transactions: async (_, __, context) => {
             try {
                 if (!context.getUser()) throw new Error('Unauthorized');
-                const userId = await context.getUser()._id;
+                const userId = await context.getUser()._conditions._id;
                 const transactions = await Transaction.find({ userId });
                 return transactions;
             } catch (error) {
@@ -21,6 +21,31 @@ const transactionResolver = {
                 console.error('Error getting transaction: ', error);
                 throw new Error('Error getting transaction');
             }
+        },
+        categoryStatistics: async (_, __, context) => {
+            try {
+                if (!context.getUser()) throw new Error('Unauthorized');
+                const userId = await context.getUser()._conditions._id;
+                const transactions = await Transaction.find({ userId });
+                const categoryMap = {};
+                
+
+                transactions.forEach((transaction) => {
+                    if (!categoryMap[transaction.category]) {
+                        categoryMap[transaction.category] = 0;
+                    }
+                    categoryMap[transaction.category] += transaction.amount;
+                });
+                console.log(categoryMap);
+                
+
+                return Object.entries(categoryMap).map(
+                    ([category, totalAmount]) => ({ category, totalAmount })
+                );
+            } catch (error) {
+                console.error('Error getting category statistics: ', error);
+                throw new Error('Error getting category statistics');
+            }
         }
     },
     Mutation: {
@@ -28,7 +53,7 @@ const transactionResolver = {
             try {
                 const newTransaction = new Transaction({
                     ...input,
-                    userId: context.getUser()._id
+                    userId: context.getUser()._conditions._id
                 });
                 await newTransaction.save();
                 return newTransaction;
@@ -50,10 +75,10 @@ const transactionResolver = {
                 throw new Error('Error updating transaction');
             }
         },
-        deleteTransaction: async (_, { input }, context) => {
+        deleteTransaction: async (_, { transactionId }, context) => {
             try {
-                const deletedTransaction = await Transaction.findByIdAndUpdate(
-                    input.transactionId
+                const deletedTransaction = await Transaction.findByIdAndDelete(
+                    transactionId
                 );
                 return deletedTransaction;
             } catch (error) {
