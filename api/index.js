@@ -49,6 +49,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
 // Same ApolloServer initialization as before, plus the drain plugin
 // for our httpServer.
