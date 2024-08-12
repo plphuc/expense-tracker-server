@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon set DEBUG=express:* & node index.js"
   },
   "dependencies": {
     "@apollo/server": "^4.10.5",
@@ -20,6 +20,7 @@
     "graphql-http": "^1.22.1",
     "graphql-passport": "^0.6.8",
     "http-errors": "~1.6.3",
+    "http-status": "^1.7.4",
     "jade": "~1.11.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.2",

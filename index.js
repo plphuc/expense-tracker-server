@@ -13,6 +13,8 @@ import session from 'express-session';
 import connectMongo from 'connect-mongodb-session';
 import passport from 'passport';
 import { configurePassport } from './passport/passport.config.js';
+import { errorHandler } from './utils/handleError.js';
+import { buildContext } from 'graphql-passport';
 
 dotenv.config();
 configurePassport();
@@ -61,7 +63,7 @@ await server.start();
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
 app.use(
-    '/',
+    '/graphql',
     cors({
         origin: 'http://localhost:3000',
         credentials: true // to use cookie
@@ -70,11 +72,11 @@ app.use(
     // expressMiddleware accepts the same arguments:
     // an Apollo Server instance and optional configuration options
     expressMiddleware(server, {
-        context: async ({ req, res }) => ({ req, res })
+        context: async ({ req, res }) => buildContext({ req, res })
     })
 );
 
 // Modified server startup
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 await connectDB();
-console.log(`🚀 Server ready at http://localhost:4000/`);
+console.log(`🚀 Server ready at http://localhost:4000/graphql`);
