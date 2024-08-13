@@ -10,6 +10,7 @@ const userTypeDef = `#graphql
   }
 
   type Query {
+    hello: String
     authUser: User # it may return null if user is not authenticated
     user(userId: ID!): User
   }

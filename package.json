@@ -4,18 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon api/index.js",
-    "start": "nodemon --trace-warnings api/index.js"
+    "dev": "nodemon dev",
+    "start": "nodemon dev"
   },
   "dependencies": {
     "@apollo/server": "^4.10.5",
     "@graphql-tools/merge": "^9.0.4",
+    "apollo-server-core": "^3.13.0",
+    "apollo-server-express": "^3.13.0",
     "bcryptjs": "^2.4.3",
     "connect-mongodb-session": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.4.5",
-    "express": "~4.16.1",
+    "express": "^4.19.2",
     "express-session": "^1.18.0",
     "graphql": "^16.9.0",
     "graphql-http": "^1.22.1",

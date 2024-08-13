@@ -74,6 +74,7 @@ const userResolver = {
         }
     },
     Query: {
+        hello: () => "Hello world from Daisy's app",
         authUser: async (_, __, context) => {
             try {
                 const user = await context.getUser();
