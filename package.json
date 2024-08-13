@@ -4,8 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon dev",
-    "start": "nodemon dev"
+    "dev": "nodemon dev"
   },
   "dependencies": {
     "@apollo/server": "^4.10.5",

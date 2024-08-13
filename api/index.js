@@ -8,8 +8,6 @@ import connectMongo from 'connect-mongodb-session';
 import passport from 'passport';
 import { configurePassport } from './passport/passport.config.js';
 
-import { expressMiddleware } from '@apollo/server/express4';
-import { buildContext } from 'graphql-passport';
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 
@@ -57,6 +55,7 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
     typeDefs: mergedTypeDefs,
     resolvers: mergedResolvers,
+    persistedQueries: false,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
 });
 
