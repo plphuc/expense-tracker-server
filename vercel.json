@@ -8,7 +8,7 @@
     ],
     "builds": [
         {
-            "src": "./dev.js",
+            "src": "api/index.js",
             "use": "@vercel/node"
         }
     ]
