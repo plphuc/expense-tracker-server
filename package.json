@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --trace-warnings dev"
+    "dev": "nodemon --trace-warnings ./dev.js"
   },
   "dependencies": {
     "@apollo/server": "^4.10.5",
