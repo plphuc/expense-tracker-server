@@ -2,6 +2,7 @@
   "name": "expense-tracker-server",
   "version": "0.0.0",
   "private": true,
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon --trace-warnings dev"
