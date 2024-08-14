@@ -3,12 +3,12 @@
     "rewrites": [
         {
             "source": "/(.*)",
-            "destination": "/api"
+            "destination": "./dev.js"
         }
     ],
     "builds": [
         {
-            "src": "api/index.js",
+            "src": "./dev.js",
             "use": "@vercel/node"
         }
     ]
